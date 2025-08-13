@@ -1,0 +1,70 @@
+version: "3.7"
+
+services:
+  #   mongo:
+  #     image: mongo:4.2
+  #     hostname: mongo
+  #     container_name: mongo
+  #     ports:
+  #       - 27017:27017
+  #     environment:
+  #       MONGO_INITDB_DATABASE: miniautorizador
+  #       MONGO_INITDB_ROOT_USERNAME: user
+  #       MONGO_INITDB_ROOT_PASSWORD: password
+  #     volumes:
+  #       - ./scripts/init.js:/docker-entrypoint-initdb.d/init.js:ro
+  #
+  mysql:
+    image: mysql:5.7
+    hostname: mysql
+    container_name: mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: miniautorizador
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - mysql_data:/var/lib/mysql/data
+    networks:
+      - mini-autorizador-network
+
+  sonarqube:
+    image: sonarqube:10.1-community
+    container_name: mini-autorizador-sonar
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    ports:
+      - "9000:9000"
+    networks:
+      - mini-autorizador-network
+    depends_on:
+      - sonar-db
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_logs:/opt/sonarqube/logs
+      - sonarqube_extensions:/opt/sonarqube/extensions
+
+  sonar-db:
+    image: postgres:15-alpine
+    container_name: mini-autorizador-sonar-db
+    environment:
+      POSTGRES_DB: sonarqube
+      POSTGRES_USER: sonarqube
+      POSTGRES_PASSWORD: sonarqube
+    volumes:
+      - sonar_db_data:/var/lib/postgresql/data
+    networks:
+      - mini-autorizador-network
+
+volumes:
+  mysql_data:
+  sonarqube_data:
+  sonarqube_logs:
+  sonarqube_extensions:
+  sonar_db_data:
+
+networks:
+  mini-autorizador-network:
+    driver: bridge
