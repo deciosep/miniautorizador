@@ -1,0 +1,52 @@
+miniautorizador:
+  db:
+    strConn: jdbc:postgresql://localhost:5432/mercadoDB
+    usr: postgres
+    pwd: postgres
+    jdbcDriver: org.postgresql.Driver
+
+spring:
+  application:
+    name: miniautorizador
+  datasource:
+    url: ${miniautorizador.db.strConn}
+    username: ${miniautorizador.db.usr}
+    password: ${miniautorizador.db.pwd}
+    driver-class-name: ${miniautorizador.db.jdbcDriver}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      jdbc:
+        batch_size: 20
+    show-sql: true
+  security:
+    user:
+      name: username
+      password: password
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+logging:
+  level:
+    br.com.decio.miniautorizador: INFO
+    org:
+      springframework.security: DEBUG
+      springframework.cache: DEBUG
+      hibernate.sql: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
