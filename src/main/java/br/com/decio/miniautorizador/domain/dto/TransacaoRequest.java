@@ -18,7 +18,7 @@ public record TransacaoRequest(
         @NotBlank(message = "Senha não pode estar vazio")
         @Size(min = 4, max = 4, message = "Senha deve ter 4 dígitos")
         @Pattern(regexp = "\\d{4}", message = "Senha deve conter apenas dígitos")
-        String senhaCartao,
+        String senha,
 
         @JsonProperty("valor")
         @NotNull(message = "Valor é obrigatório")

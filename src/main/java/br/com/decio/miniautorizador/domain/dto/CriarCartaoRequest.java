@@ -8,13 +8,13 @@ import jakarta.validation.constraints.Size;
 // Request para criacao do cartao
 public record CriarCartaoRequest(
         @JsonProperty("numeroCartao")
-        @NotBlank(message = "Número do cartão não pode estar vazio")
+        @NotBlank(message = "Número do cartão é obrigatório")
         @Size(min = 16, max = 16, message = "Número do cartão deve ter 16 dígitos")
         @Pattern(regexp = "\\d{16}", message = "Número do cartão deve conter apenas dígitos")
         String numeroCartao,
 
-        @JsonProperty("senhaCartao")
-        @NotBlank(message = "Senha não pode estar vazio")
+        @JsonProperty("senha")
+        @NotBlank(message = "Senha é obrigatória")
         @Size(min = 4, max = 4, message = "Senha deve ter 4 dígitos")
         @Pattern(regexp = "\\d{4}", message = "Senha deve conter apenas dígitos")
         String senha) {

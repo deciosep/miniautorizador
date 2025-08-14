@@ -19,5 +19,5 @@ public interface CartaoRepository extends JpaRepository<Cartao, String>{
     Optional<Cartao> findByNumeroCartaoWithOptimisticLock(@Param("numeroCartao") String numeroCartao);
 
     @Query("SELECT CASE WHEN COUNT(c)> 0 THEN true ELSE false END from Cartao c WHERE c.numeroCartao = :numeroCartao")
-    public boolean existsByNumeroCartao(@Param("numeroCartao") String numeroCartao);
+    boolean existsByNumeroCartao(@Param("numeroCartao") String numeroCartao);
 }

@@ -10,7 +10,6 @@ import java.util.Optional;
 // Strategy para validar a existencia do cartao
 @Component
 public class ValidacaoCartaoExistenteStrategy implements ValidacaoStrategy {
-
     @Override
     public Optional<MotivoRejeicao> validar(TransacaoRequest request, Cartao cartao) {
         return Optional.ofNullable(cartao)

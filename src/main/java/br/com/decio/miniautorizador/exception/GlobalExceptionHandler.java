@@ -25,7 +25,6 @@ public class GlobalExceptionHandler {
         CriarCartaoResponse response = new CriarCartaoResponse(numeroCartao, "****");
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
     }
-
     @ExceptionHandler(CartaoNaoEncontradoException.class)
     public ResponseEntity<Void> handleCartaoNaoEncontrado(CartaoNaoEncontradoException e) {
         log.warn("Cartão não encontrado: {}", e.getMessage());

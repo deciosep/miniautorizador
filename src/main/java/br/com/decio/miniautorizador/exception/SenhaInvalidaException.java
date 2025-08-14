@@ -2,10 +2,13 @@ package br.com.decio.miniautorizador.exception;
 
 import br.com.decio.miniautorizador.domain.enums.MotivoRejeicao;
 
-// Exception para senhaCartao
+// Exception para senha
 public class SenhaInvalidaException extends BusinessException {
-    public SenhaInvalidaException(String numeroCartao) {
+    public SenhaInvalidaException() {
         super("Senha do cartão inválida");
+    }
+    public SenhaInvalidaException(String numeroCartao) {
+        super("Senha do cartão " + numeroCartao + " inválida");
     }
     @Override
     public MotivoRejeicao getMotivoRejeicao() {

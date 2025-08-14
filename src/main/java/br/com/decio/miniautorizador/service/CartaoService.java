@@ -33,7 +33,6 @@ public class CartaoService {
         this.validadorTransacao = validadorTransacao;
         this.exceptionFactory = exceptionFactory;
     }
-
     public CriarCartaoResponse criarCartao(CriarCartaoRequest request) {
         return Optional.of(request.numeroCartao())
                 .filter(numero -> !cartaoRepository.existsByNumeroCartao(numero))

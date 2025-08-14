@@ -20,21 +20,28 @@ services:
     container_name: mysql
     restart: always
     ports:
-      - "3306:3306"
+      - "3307:3306"
     environment:
       MYSQL_DATABASE: miniautorizador
-      MYSQL_ROOT_PASSWORD:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: miniautorizador
+      MYSQL_PASSWORD: miniautorizador
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
-      - mysql_data:/var/lib/mysql/data
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     networks:
       - mini-autorizador-network
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
 
   sonarqube:
     image: sonarqube:10.1-community
     container_name: mini-autorizador-sonar
     environment:
       - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+      - SONAR_JDBC_URL=jdbc:mysql://sonar-mysql:3307/sonarqube?useSSL=false&allowPublicKeyRetrieval=true
+      - SONAR_JDBC_USERNAME=sonarqube
+      - SONAR_JDBC_PASSWORD=sonarqube
     ports:
       - "9000:9000"
     networks:
@@ -47,16 +54,18 @@ services:
       - sonarqube_extensions:/opt/sonarqube/extensions
 
   sonar-db:
-    image: postgres:15-alpine
+    image: mysql:5.7
     container_name: mini-autorizador-sonar-db
     environment:
-      POSTGRES_DB: sonarqube
-      POSTGRES_USER: sonarqube
-      POSTGRES_PASSWORD: sonarqube
+      MYSQL_DATABASE: sonarqube
+      MYSQL_USER: sonarqube
+      MYSQL_PASSWORD: sonarqube
+      MYSQL_ROOT_PASSWORD: root
     volumes:
-      - sonar_db_data:/var/lib/postgresql/data
+      - sonar_db_data:/var/lib/mysql
     networks:
       - mini-autorizador-network
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
 
 volumes:
   mysql_data:

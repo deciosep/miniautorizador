@@ -8,7 +8,6 @@ public record CriarCartaoResponse(@JsonProperty("numeroCartao") String numeroCar
     public static CriarCartaoResponse of(String numeroCartao, String senha) {
         return new CriarCartaoResponse(numeroCartao, senha);
     }
-
     // Mascara senha para logs
     public CriarCartaoResponse comSenhaMascarada(){
         return new CriarCartaoResponse(numeroCartao, "****");

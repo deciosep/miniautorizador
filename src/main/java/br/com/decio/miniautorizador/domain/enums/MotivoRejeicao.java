@@ -7,7 +7,6 @@ public enum MotivoRejeicao {
     CARTAO_INEXISTENTE("Cartão não encontrado no sistema");
 
     private final String descricao;
-
     MotivoRejeicao(String descricao) {
         this.descricao = descricao;
     }

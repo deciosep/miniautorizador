@@ -14,7 +14,7 @@ public class ValidacaoSenhaStrategy implements ValidacaoStrategy {
     @Override
     public Optional<MotivoRejeicao> validar(TransacaoRequest request, Cartao cartao) {
         return Optional.ofNullable(cartao)
-                .filter( c -> c.senhaCorreta(request.senhaCartao()))
+                .filter( c -> c.senhaCorreta(request.senha()))
                 .map( c -> Optional.<MotivoRejeicao>empty())
                 .orElse(Optional.of(MotivoRejeicao.SENHA_INVALIDA));
     }

@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class TransacaoService {
     private final CartaoService cartaoService;
-
     public TransacaoService(CartaoService cartaoService) {
         this.cartaoService = cartaoService;
     }

@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableRetry
 @EnableTransactionManagement
 public class MiniautorizadorApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(MiniautorizadorApplication.class, args);
 	}

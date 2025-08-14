@@ -20,7 +20,7 @@ public class Cartao {
     @Size(min = 16, max = 16, message = "Número do cartão deve ter 16 dígitos")
     private String numeroCartao;
 
-    @Column(name = "senhaCartao", length = 4, nullable = false)
+    @Column(name = "senha", length = 4, nullable = false)
     @NotBlank(message = "Senha não pode estar vazio")
     @Size(min = 4, max = 4, message = "Senha deve ter 4 dígitos")
     private String senha;

@@ -12,6 +12,7 @@ import java.util.Optional;
 @Component
 public class ValidadorTransacao {
     private List<ValidacaoStrategy> estrategias;
+
     public ValidadorTransacao(List<ValidacaoStrategy> estrategias) {
         this.estrategias = estrategias.stream()
                 .sorted( (e1, e2) -> Integer.compare(e1.getOrdem(), e2.getOrdem()))

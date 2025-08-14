@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 public record ResultadoAutorizacao(
         boolean autorizada, MotivoRejeicao motivo, LocalDateTime timeStamp
 ) {
-
         public static ResultadoAutorizacao aprovada(){
                 return new ResultadoAutorizacao(true, null, LocalDateTime.now());
         }

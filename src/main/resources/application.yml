@@ -1,9 +1,9 @@
 miniautorizador:
   db:
-    strConn: jdbc:postgresql://localhost:5432/mercadoDB
-    usr: postgres
-    pwd: postgres
-    jdbcDriver: org.postgresql.Driver
+    strConn: jdbc:mysql://localhost:3307/miniautorizador?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Sao_Paulo&createDatabaseIfNotExist=true
+    usr: root
+    pwd: root
+    jdbcDriver: com.mysql.cj.jdbc.Driver
 
 spring:
   application:
@@ -15,7 +15,7 @@ spring:
     driver-class-name: ${miniautorizador.db.jdbcDriver}
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
       jdbc:
         batch_size: 20
     show-sql: true
@@ -36,11 +36,10 @@ server:
 
 logging:
   level:
-    br.com.decio.miniautorizador: INFO
+    br.com.decio.miniautorizador: DEBUG
     org:
-      springframework.security: DEBUG
-      springframework.cache: DEBUG
-      hibernate.sql: DEBUG
+      springframework.security: WARN
+      hibernate.sql: WARN
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
@@ -49,4 +48,9 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,prometheus
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+  server:
+    port: ${server.port}
